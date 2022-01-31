@@ -3,26 +3,29 @@
 @section('title') edit @endsection
 
 @section('content')
-        <form method="POST" action="{{ route('posts.store') }}">
+
+@foreach ($Post as $post )
+        <form method="POST" action="{{ route('posts.edit') }}">
             @csrf
+
+            <input type="text" name="id" id="id" value="{{$post->id}}" hidden>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Title</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" value="Post Two">
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="title" value="{{$post->title}}">
             </div>
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Description</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3">hello together noe</textarea>
+                <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3">{{$post->description}}</textarea>
             </div>
 
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Post Creator</label>
                 <select class="form-control">
-                    <option value="1">ahmed</option>
-                    <option value="2">mohamed</option>
+                    <option value="1">{{$post->user->name}}</option>
                 </select>
             </div>
-
-            <button class="btn btn-success">Create Post</button>
+            @endforeach
+            <button class="btn btn-success">Update Post</button>
         </form>
 @endsection
