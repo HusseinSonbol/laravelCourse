@@ -8,6 +8,16 @@
         <form method="POST" action="{{ route('posts.edit') }}">
             @csrf
 
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
+
             <input type="text" name="id" id="id" value="{{$post->id}}" hidden>
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Title</label>

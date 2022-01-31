@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Requests\StorePostRequest;
 use Symfony\Component\Console\Input\Input;
 
 class PostController extends Controller
@@ -16,11 +18,11 @@ class PostController extends Controller
 
     public function create()
     {
-
-        return view('posts.create');
+        $users = User::all();
+        return view('posts.create', ['creators'=>$users]);
     }
 
-    public function edit(Request $req)
+    public function edit(Request $req,StorePostRequest $request)
     {
 
         $data = Post::find($req->id);
@@ -44,7 +46,7 @@ class PostController extends Controller
         return view('posts.edit', ['Post' => $allPosts]);
     }
 
-    public function store(Request $req){
+    public function store(Request $req , StorePostRequest $request){
        //dd($req->input());
        $post = new Post();
        $post->title = $req->title;

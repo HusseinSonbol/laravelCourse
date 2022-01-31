@@ -6,6 +6,15 @@
         <form method="POST" action="{{ route('posts.store') }}">
             @csrf
 
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+            @endif
 
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">Title</label>
@@ -20,8 +29,10 @@
             <div class="mb-3">
                 <label for="exampleFormControlTextarea1" class="form-label">Post Creator</label>
                 <select class="form-control" name="user">
-                    <option value="1">Hussein</option>
-                    <option value="2">Ali</option>
+                    @foreach ($creators as $creator)
+                    <option value="{{$creator->id}}">{{$creator->name}}</option>
+                    @endforeach
+
                 </select>
             </div>
 
