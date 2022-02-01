@@ -12,7 +12,7 @@ class PostController extends Controller
 {
     public function index()
     {
-        $allPosts = Post::paginate(2);
+        $allPosts = Post::with('user')->paginate(5);
         return view('posts.index', ['allPosts' => $allPosts]);
     }
 
@@ -51,7 +51,7 @@ class PostController extends Controller
        $post = new Post();
        $post->title = $req->title;
        $post->description = $req->description;
-       $post->user_id = $req->user;
+       $post->user_id = $req->user_id;
        $post->save();
         return redirect()->route('posts.index')->with('status', 'post inserted!');
     }
